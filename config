@@ -1,0 +1,57 @@
+######################################################
+#                Docker Settings                     #
+######################################################
+# name=$(basename $(dirname $(realpath ${BASH_SOURCE[0]})))
+name=gitlab
+repo=advantechralph/work:gitlabce
+# repo=advantechralph/work:gitlab
+#####################################################
+#               Volumes Settings                     #
+######################################################
+unset volumes
+declare -A volumes
+volumes[0,path]=$(dirname $(realpath ${BASH_SOURCE[0]}))/share/config
+volumes[0,docker]=/etc/gitlab
+volumes[1,path]=$(dirname $(realpath ${BASH_SOURCE[0]}))/share/logs
+volumes[1,docker]=/var/log/gitlab
+volumes[2,path]=$(dirname $(realpath ${BASH_SOURCE[0]}))/share/data
+volumes[2,docker]=/var/opt/gitlab
+volumes[4,path]=~/.gitconfig
+volumes[4,docker]=/root/.gitconfig
+#volumes[0,path]=/work/docker/volumes/share
+#volumes[0,docker]=/share
+#volumes[1,path]=${dir}
+#volumes[1,docker]=/work/Dockerfile
+#volumes[2,path]=/dev
+#volumes[2,docker]=/dev
+#volumes[3,path]=/media/sf_share
+#volumes[3,docker]=/media/sf_share
+#volumes[4,path]=/tmp/.X11-unix
+#volumes[4,docker]=/tmp/.X11-unix
+#volumes[5,path]=/etc/localtime
+#volumes[5,docker]=/etc/localtime:ro
+#rm -rf ${dir}/.docker.xauth
+#touch ${dir}/.docker.xauth
+#xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f ${dir}/.docker.xauth nmerge -
+#chown 1000:1000 .docker.xauth
+#volumes[6,path]=${dir}/.docker.xauth
+#volumes[6,docker]=/tmp/.docker.xauth:rw
+######################################################
+#                 Ports Settings                     #
+######################################################
+unset ports
+declare -A ports
+ports[0]=443:443
+ports[1]=80:80
+ports[2]=22:22
+######################################################
+#                  Envs Settings                     #
+######################################################
+unset envs
+declare -A envs
+#envs[0]="DISPLAY"
+#envs[1]="QT_X11_NO_MITSHM=1"
+#envs[2]="XAUTHORITY=/tmp/.docker.xauth"
+
+[ ! -d "share" ] && ( echo create share!! && mkdir -p share )
+
